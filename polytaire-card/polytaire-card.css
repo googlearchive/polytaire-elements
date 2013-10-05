@@ -1,0 +1,88 @@
+@host {
+  * {
+    width: 144px;
+    height: 200px;
+    position: relative;
+    display: inline-block;
+    -webkit-transform-origin: bottom center;
+    transform-origin: bottom center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    cursor:pointer;
+  }
+  [small] {
+    width: 72px;
+    height: 100px;
+  }
+}
+
+#card {
+  font-size: 2em;
+  position: relative;
+  perspective: 1000;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+  -moz-perspective: 1000;
+  height: 100%;
+  width: 100%;
+}
+
+.backcontents {
+  background: url(svgbg/card_back_06.svg) no-repeat center center;
+  background-size: cover;
+  background-color: blue;
+  padding: 15%;
+  height: 78.5%;
+  border-radius: 3%;
+}
+
+#contents {
+  transition: 0.6s;
+  -webkit-transition: 0.6s;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#card.faceup #contents {
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+#face, #back {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 3%;
+  background-color:white;
+  border: 1px solid black;
+}
+
+.facecontents {
+  padding: 5%;
+  border: 1% solid gray;
+  display: -webkit-flex;
+  -webkit-flex-direction:horizontal;
+  -webkit-justify-content:center;
+  height:75%;
+  background-size: 100% 100%;
+  margin-top:10%;
+}
+
+#back {
+}
+
+#face {
+  z-index:2;
+  background-color: white;
+  transform: rotateY(180deg);
+  -webkit-transform:rotateY(180deg);
+}

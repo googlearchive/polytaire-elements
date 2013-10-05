@@ -1,0 +1,34 @@
+
+<!doctype html>
+<!--
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<html>
+  <head>
+    <title>playing-card</title>
+    <script src="../../polymer/polymer.js"></script>
+    <link rel="import" href="playing-card.html">
+    <style>
+      body {
+        font-family: 'Neue Helvetica', Roboto, Arial, san-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <playing-card small></playing-card>
+    <playing-card></playing-card>
+    <script>
+      document.body.onclick = function(event) {
+        var card = (event.target.localName === 'playing-card') && event.target;
+        if (card) {
+          if (!card.faceup) {
+            card.randomSuit().randomValue();
+          }
+          card.flip();
+        }
+      }
+    </script>
+  </body>
+</html>

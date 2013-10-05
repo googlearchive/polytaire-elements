@@ -1,0 +1,85 @@
+<!--
+    A hand of playing cards
+-->
+<link rel="import" href="../polytaire-card/polytaire-card.html">
+<polymer-element name="polytaire-arrangement" attributes="presentation fandegrees stackspacing">
+  <template>
+    <style>
+      @host {
+        * {
+          display:block;
+        }
+      }
+      content.fan::-webkit-distributed(card-card) {
+        display:block;
+        position:absolute !important;
+      }
+      #cardsElement {
+        display:block;
+        position:relative;
+      }
+    </style>
+    <content class="{{presentation}}"></content>
+  </template>
+  <script>
+    Polymer('polytaire-arrangement', {
+      cards:[],
+      presentation:'horizontal',
+      vertical: true,
+      fandegrees: 0,
+      stackspacing: 0,
+      ready: function() {
+        this.watchMutation();
+      },
+      watchMutation: function() {
+        var change = function() {
+          this.presentationChanged();
+          this.onMutation(this, change);
+        }.bind(this);
+        this.onMutation(this, change);
+      },
+      fandegreesChanged: function() {
+        this.presentationChanged();
+      },
+      cardsChanged: function() {
+        this.presentationChanged();
+      },
+      stackspacingChanged: function() {
+        this.useStackSpacing = !!this.stackspacing;
+        this.presentationChanged();
+      },
+      presentationChanged: function() {
+        var cards = this.querySelectorAll('polytaire-card').array();
+        cards.forEach(function(card) {
+          card.notap = false;
+          card.small = false;
+        });
+        if (this.presentation == 'fan') {
+          this.fan(cards);
+        } else {
+          this.line(cards);
+        }
+      },
+      fan: function(cards) {
+        var angleInc = this.fandegrees ? Number(this.fandegrees) : Math.min(12, 180 / cards.length);
+        var angle = Math.floor(cards.length / 2 - 0.5) * -angleInc;
+        cards.forEach(function(card) {
+          card.style.webkitTransform = 'rotateZ(' + angle + 'deg)';
+          angle += angleInc;
+        });
+      },
+      line: function(cards) {
+        cards.forEach(function(card) {
+          if (this.presentation == 'vertical') {
+            card.style.marginBottom = this.stackspacing;
+            card.style.display = 'block';
+          } else /*if (this.presentation == 'horizontal')*/ {
+            card.style.marginRight = this.stackspacing;
+            card.style.display = 'inline-block';
+          }
+          card.style.webkitTransform = '';
+        }.bind(this));
+      }
+    });
+</script>
+</polymer-element>
