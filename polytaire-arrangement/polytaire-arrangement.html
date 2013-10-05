@@ -7,16 +7,12 @@
     <style>
       @host {
         * {
-          display:block;
+          display: block;
         }
       }
       content.fan::-webkit-distributed(card-card) {
-        display:block;
-        position:absolute !important;
-      }
-      #cardsElement {
-        display:block;
-        position:relative;
+        display: block;
+        position: absolute !important;
       }
     </style>
     <content class="{{presentation}}"></content>
@@ -42,10 +38,6 @@
         this.presentationChanged();
       },
       cardsChanged: function() {
-        this.presentationChanged();
-      },
-      stackspacingChanged: function() {
-        this.useStackSpacing = !!this.stackspacing;
         this.presentationChanged();
       },
       presentationChanged: function() {
