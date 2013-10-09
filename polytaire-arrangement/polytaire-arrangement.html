@@ -1,5 +1,5 @@
 <!--
-    A hand of playing cards
+    An collection of playing cards with a visible arrangement
 -->
 <link rel="import" href="../polytaire-card/polytaire-card.html">
 <polymer-element name="polytaire-arrangement" attributes="presentation fandegrees stackspacing">
@@ -10,7 +10,7 @@
           display: block;
         }
       }
-      content.fan::-webkit-distributed(card-card) {
+      content.fan::-webkit-distributed(polytaire-card) {
         display: block;
         position: absolute !important;
       }

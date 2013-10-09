@@ -19,16 +19,5 @@ license that can be found in the LICENSE file.
   <body>
     <polytaire-card small></polytaire-card>
     <polytaire-card></polytaire-card>
-    <script>
-      document.body.onclick = function(event) {
-        var card = (event.target.localName === 'polytaire-card') && event.target;
-        if (card) {
-          if (!card.faceup) {
-            card.randomSuit().randomValue();
-          }
-          card.flip();
-        }
-      }
-    </script>
   </body>
 </html>

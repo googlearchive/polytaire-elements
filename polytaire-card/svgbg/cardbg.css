@@ -154,9 +154,9 @@
 .diamondsK .facecontents {
     background-image: url("KD.svg");
 }
-.clubsJK .facecontents,
-.spadesJK .facecontents,
-.heartsJK .facecontents,
-.diamondsJK .facecontents {
+.clubsJoker .facecontents,
+.spadesJoker .facecontents,
+.heartsJoker .facecontents,
+.diamondsJoker .facecontents {
   background-image: url("JK.svg");
 }
