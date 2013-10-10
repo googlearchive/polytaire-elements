@@ -12,12 +12,12 @@
         width: 72px;
         height: 100px;
       }
-      .polytaire-deck-card {
+      polytaire-card {
         position: absolute !important;
       }
     </style>
     <template repeat="{{cards}}">
-      <polytaire-card class="polytaire-deck-card" value="{{value}}" suit="{{suit}}" style="-webkit-transform: rotate({{rotation}}deg)" small notap></polytaire-card>
+      <polytaire-card value="{{value}}" suit="{{suit}}" style="-webkit-transform: rotate({{rotation}}deg)" small notap></polytaire-card>
     </template>
   </template>
   <script>
