@@ -1,0 +1,122 @@
+<link rel="import" href="../polymer/polymer.html">
+<!--
+    A playing card element
+-->
+<polymer-element name="polytaire-card" on-tap="{{tapAction}}" attributes="value suit faceup noflip notap small">
+<template>
+
+  <link rel="stylesheet" href="polytaire-card.css">
+  <link rel="stylesheet" href="svgbg/cardbg.css">
+  
+  <div id="card">
+    <div id="contents">
+      <div id="face">
+        <div class="facecontents"></div>
+      </div>
+      <div id="back">
+        <div class="backcontents"></div>
+      </div>
+    </div>
+  </div>
+  
+</template>
+<script>
+
+  Polymer({
+    publish: {
+      small: {
+        value: false,
+        reflect: true
+      }
+    },
+    faceup: false,
+    noflip: false,
+    notap: false,
+    value: -1,
+    suit: '',
+    // lifecycle
+    ready: function() {
+      if (this.value === -1) {
+        this.randomValue();
+      }
+      if (this.suit === '') {
+        this.randomSuit();
+      }
+      // TODO(doughtie):any other init needed
+    },
+    // actions (event response)
+    tapAction: function() {
+      if (!this.notap) {
+        this.flip();
+      }
+    },
+    // commands
+    draw: function() {
+      this.notap = false;
+      //this.style.transform = '';
+      //this.style.webkitTransform = '';
+      return this;
+    },
+    flip: function() {
+      if (!this.noflip) {
+        this.faceup = !this.faceup;
+      }
+      return this;
+    },
+    randomValue: function() {
+      this.value = Math.floor(Math.random() * this.valueStrings.length);
+      return this;
+    },
+    randomSuit: function() {
+      this.suit = ['clubs', 'hearts', 'diamonds', 'spades'][Math.floor(Math.random() * 4)];
+      return this;
+    },
+    // reactions (data)
+    colorChanged: function() {
+      this.$.face.style.color = this.color;
+    },
+    faceupChanged: function() {
+      this.$.card.classList.toggle('faceup', this.faceup);
+    },
+    suitChanged: function() {
+      this.color = this.colors[this.suit];
+      this.pip = this.pips[this.suit];
+      this.updateValueSuitClass();
+    },
+    valueChanged: function() {
+      this.valueString = this.valueStrings[this.value];
+      this.updateValueSuitClass();
+    },
+    _valueSuitClassChanged: function(old) {
+      this.$.card.classList.switch(old, this._valueSuitClass);
+    },
+    // protected
+    _valueSuitClass: '',
+    updateValueSuitClass: function() {
+      this._valueSuitClass = this.suit + this.valueString;
+    },
+    // put semi-static data in prototype for scoped access
+    valueStrings: [
+      'Joker',
+      'A', 
+      '2', '3', '4',
+      '5', '6', '7',
+      '8', '9', '10', 
+      'J', 'Q', 'K'
+    ],
+    pips: {
+      diamonds: '\u2666',
+      hearts: '\u2665',
+      clubs: '\u2663',
+      spades: '\u2660'
+    },
+    colors: {
+      diamonds: 'red',
+      hearts: 'red',
+      clubs: 'black',
+      spades: 'black'
+    }
+  });
+  
+</script>
+</polymer-element>

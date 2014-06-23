@@ -1,0 +1,36 @@
+:host {
+  display: block;
+  position: relative;
+  font-family: sans-serif;
+  color: white;
+}
+
+:host > polytaire-card {
+  position: absolute;
+  -webkit-transition: all ease-in-out 500ms;
+}
+
+polytaire-deck {
+  display: none;
+}
+
+card-hand {
+  display: inline-block;
+  position: absolute;
+  width: 200px;
+  height: 100px;
+}
+
+#bank {
+  top: 48px;
+  left: 402px;
+}
+
+#player {
+  top: 48px;
+  left: 30px;
+}
+
+#result {
+  text-align: center;
+}

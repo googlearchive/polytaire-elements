@@ -1,0 +1,103 @@
+<link rel="import" href="polytaire-card.html">
+<!--
+  A deck of playing cards
+-->
+<polymer-element name="polytaire-deck" on-dblclick="{{dblclick}}" attributes="wiggle">
+<template>
+
+  <style>
+    :host { 
+      display: inline-block;
+      position: relative;
+      width: 72px;
+      height: 100px;
+      background-color: whitesmoke;
+    }
+    polytaire-card {
+      position: absolute;
+    }
+    #count {
+      font-family: sans-serif;
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      padding: 4px 4px 3px;
+      font-size: 14px;
+      border-radius: 16px;
+      background-color: whitesmoke;
+      opacity: 0.8;
+      z-index: 2;
+    }
+  </style>
+  
+  <!--<span id="count">{{cards.length}}</span>-->
+  <template repeat="{{cards}}">
+    <polytaire-card value="{{value}}" suit="{{suit}}" style="-webkit-transform: rotate({{rotation}}deg)" small notap></polytaire-card>
+  </template>
+  
+</template>
+<script>
+
+  Polymer({
+    wiggle: 0,
+    
+    // lifecycle
+    ready: function() {
+      this.shuffle();
+      this.watchMutations();
+    },
+    
+    // events
+    dblclick: function() {
+      this.shuffle();
+    },
+    
+    watchMutations: function() {
+      this.onMutation(this, function(observer, mutations) {
+        this.mutations(mutations);
+        this.onMutation(this, change);
+      });
+    },
+    mutations: function(mutations) {
+      mutations.forEach(function(m) {
+        if (m.type === 'childList' && m.removedNodes) {
+          m.removedNodes.array().forEach(this.dealCard);
+        }
+      }, this);
+    },
+    
+    drawCard: function(card) {
+      return card.draw && card.draw();
+    },
+    
+    // commands
+    shuffle: function(decks) {
+      var count = (decks || 1) * 52;
+      //
+      var ordered = [];
+      for (var i=0; i<count; i++) {
+        ordered.push({
+          suit: ['clubs', 'hearts', 'diamonds', 'spades'][Math.floor(i/13) % 4],
+          value: (i%13) + 1,
+          rotation: (Math.random() * 2 - 1) * this.wiggle
+        });
+      }
+      //
+      this.cards = [];
+      for (var i=0, j; i<count; i++) {
+        j = Math.floor(Math.random()*count);
+        // TODO(sjmiles): this is an easy but poorly randomized distribution
+        for (; !ordered[j]; j = (j + 1) % count);
+        this.cards.push(ordered[j]);
+        ordered[j] = null;
+      }
+    },
+    
+    deal: function() {
+      this.cards.pop();
+      return this.drawCard(this.shadowRoot.lastElementChild);
+    }
+  });
+  
+</script>
+</polymer-element>
