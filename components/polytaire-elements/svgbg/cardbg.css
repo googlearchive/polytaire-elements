@@ -1,0 +1,162 @@
+.clubsA .facecontents {
+    background-image: url("AC.svg");
+}
+.clubs2 .facecontents {
+    background-image: url("2C.svg");
+}
+.clubs3 .facecontents {
+    background-image: url("3C.svg");
+}
+.clubs4 .facecontents {
+    background-image: url("4C.svg");
+}
+.clubs5 .facecontents {
+    background-image: url("5C.svg");
+}
+.clubs6 .facecontents {
+    background-image: url("6C.svg");
+}
+.clubs7 .facecontents {
+    background-image: url("7C.svg");
+}
+.clubs8 .facecontents {
+    background-image: url("8C.svg");
+}
+.clubs9 .facecontents {
+    background-image: url("9C.svg");
+}
+.clubs10 .facecontents {
+    background-image: url("10C.svg");
+}
+.clubsJ .facecontents {
+    background-image: url("JC.svg");
+}
+.clubsQ .facecontents {
+    background-image: url("QC.svg");
+}
+.clubsK .facecontents {
+    background-image: url("KC.svg");
+}
+.spadesA .facecontents {
+    background-image: url("AS.svg");
+}
+.spades2 .facecontents {
+    background-image: url("2S.svg");
+}
+.spades3 .facecontents {
+    background-image: url("3S.svg");
+}
+.spades4 .facecontents {
+    background-image: url("4S.svg");
+}
+.spades5 .facecontents {
+    background-image: url("5S.svg");
+}
+.spades6 .facecontents {
+    background-image: url("6S.svg");
+}
+.spades7 .facecontents {
+    background-image: url("7S.svg");
+}
+.spades8 .facecontents {
+    background-image: url("8S.svg");
+}
+.spades9 .facecontents {
+    background-image: url("9S.svg");
+}
+.spades10 .facecontents {
+    background-image: url("10S.svg");
+}
+.spadesJ .facecontents {
+    background-image: url("JS.svg");
+}
+.spadesQ .facecontents {
+    background-image: url("QS.svg");
+}
+.spadesK .facecontents {
+    background-image: url("KS.svg");
+}
+.heartsA .facecontents {
+    background-image: url("AH.svg");
+}
+.hearts2 .facecontents {
+    background-image: url("2H.svg");
+}
+.hearts3 .facecontents {
+    background-image: url("3H.svg");
+}
+.hearts4 .facecontents {
+    background-image: url("4H.svg");
+}
+.hearts5 .facecontents {
+    background-image: url("5H.svg");
+}
+.hearts6 .facecontents {
+    background-image: url("6H.svg");
+}
+.hearts7 .facecontents {
+    background-image: url("7H.svg");
+}
+.hearts8 .facecontents {
+    background-image: url("8H.svg");
+}
+.hearts9 .facecontents {
+    background-image: url("9H.svg");
+}
+.hearts10 .facecontents {
+    background-image: url("10H.svg");
+}
+.heartsJ .facecontents {
+    background-image: url("JH.svg");
+}
+.heartsQ .facecontents {
+    background-image: url("QH.svg");
+}
+.heartsK .facecontents {
+    background-image: url("KH.svg");
+}
+.diamondsA .facecontents {
+    background-image: url("AD.svg");
+}
+.diamonds2 .facecontents {
+    background-image: url("2D.svg");
+}
+.diamonds3 .facecontents {
+    background-image: url("3D.svg");
+}
+.diamonds4 .facecontents {
+    background-image: url("4D.svg");
+}
+.diamonds5 .facecontents {
+    background-image: url("5D.svg");
+}
+.diamonds6 .facecontents {
+    background-image: url("6D.svg");
+}
+.diamonds7 .facecontents {
+    background-image: url("7D.svg");
+}
+.diamonds8 .facecontents {
+    background-image: url("8D.svg");
+}
+.diamonds9 .facecontents {
+    background-image: url("9D.svg");
+}
+.diamonds10 .facecontents {
+    background-image: url("10D.svg");
+}
+.diamondsJ .facecontents {
+    background-image: url("JD.svg");
+}
+.diamondsQ .facecontents {
+    background-image: url("QD.svg");
+}
+.diamondsK .facecontents {
+    background-image: url("KD.svg");
+}
+.clubsJoker .facecontents,
+.spadesJoker .facecontents,
+.heartsJoker .facecontents,
+.diamondsJoker .facecontents {
+  background-image: url("JK.svg");
+}

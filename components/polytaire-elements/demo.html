@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+<head>
+
+  <title>Baccarat / Chemin-De-Fer / Punto Blanco</title>
+
+  <script src="../platform/platform.js"></script>
+
+  <link rel="import" href="polytaire-deck.html">
+
+  <style>
+    body {
+      overflow: hidden;
+      -webkit-transform: scale(1);
+      -webkit-transform-origin: top left;
+      background-color: #077a52;
+    }
+  </style>
+  
+</head>
+<body unresolved fullbleed vertical layout center>
+
+  <punto-blanco flex></punto-blanco>
+
+  <polymer-element name="card-hand">
+  <template>
+    <!--<p>&nbsp;{{score}}</p>-->
+  </template>
+  <script>
+    Polymer('card-hand', {  
+      score: 0,
+      created: function() {
+        this.cards = [];
+      },
+      discard: function() {
+        this.cards.forEach(function(card) {
+          card.remove();
+        });
+        this.cards = [];
+      },
+      draw: function(card) {
+        card.style.top = this.offsetTop + 'px';
+        card.style.left = 32 + (this.offsetLeft + this.cards.length * card.offsetWidth) + 'px'; 
+        this.cards.push(card);
+        this.calcScore();
+      },
+      cardValue: function(card) {
+        return card.value > 10 ? 0 : card.value;
+      },
+      calcScore: function() {
+        var cv = this.cardValue;
+        this.score = this.cards.reduce(function(value, card) {
+          return value + cv(card);
+        }, 0);
+        this.score = this.score % 10;
+      }
+    });
+  </script>
+  </polymer-element>
+  
+  <polymer-element name="punto-blanco" on-tap="{{action}}">
+  <template>
+  
+    <link rel="stylesheet" href="demo.css">
+    
+    <img id="table" src="table.png">
+    
+    <polytaire-deck id="deck" xon-tap="{{xdealHands}}"></polytaire-deck>
+    
+    <card-hand id="bank"></card-hand>
+    <card-hand id="player"></card-hand>
+
+    <button hidden id="deal" xon-tap="{{xdealHands}}">Deal</button>
+    <button hidden id="hit" xon-tap="{{xhit}}" disabled>Hit</button>
+
+    <h1 id="result">{{result}}</h1>
+    
+  </template>
+  <script>
+    Polymer('punto-blanco', {  
+      ready: function() {
+        // n-deck shoe
+        this.$.deck.shuffle(4);  
+      },
+      action: function() {
+        if (!this.$.deal.disabled) {
+          this.dealHands();
+        } else {
+          this.hit();
+        }
+      },
+      dealCard: function(hand, after) {
+        this.$.deal.disabled = true;
+        this.result = 'Gaming...';
+        //
+        var card = this.$.deck.deal();
+        var s = card.style;
+        s.left = '897px';
+        s.top = '-146px';
+        //s.webkitTransform = s.transform = 'rotate(117deg)';
+        this.shadowRoot.appendChild(card);
+        //
+        setTimeout(function() {
+          card.faceup = true;
+          hand.draw(card);
+          s.webkitTransform = s.transform = '';
+        }, after || 50);
+        //
+        return card;
+      },
+      dealHands: function() {
+        if (!this.$.deal.disabled) {
+          this.$.deal.disabled = true;
+          this.$.player.discard();
+          this.$.bank.discard();
+          this.dealCard(this.$.player);
+          this.dealCard(this.$.bank, 200);
+          this.dealCard(this.$.player, 400);
+          this.dealCard(this.$.bank, 600);
+          this.async(function() {
+            var pat = (this.$.player.score >= 8 || this.$.bank.score >= 8);
+            this.$.hit.disabled = pat;
+            if (pat) {
+              this.async(this.fini, null, 300);
+            }
+          }, null, 1000);
+        }
+      },
+      // bank-hits = rules[bank.score][player.hitcard]    
+      rules: [
+        [1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 0, 1],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0]
+      ],
+      hit: function() {
+        this.$.hit.disabled = true;
+        //
+        var bank_hits = false;
+        //
+        if (this.$.player.score <= 5) {
+          var card = this.dealCard(this.$.player);
+        } else {
+          bank_hits = (this.$.bank.score <= 5);
+        }
+        //
+        this.async(function() {
+          bank_hits = bank_hits || (card && this.rules[this.$.bank.score][card.value % 10]);
+          if (bank_hits) {
+            this.dealCard(this.$.bank);
+          }
+          this.async(this.fini, null, 500);
+        });
+      },
+      fini: function() {
+        if (this.$.player.score > this.$.bank.score) {
+          this.result = 'Player wins!';
+        } else if (this.$.player.score === this.$.bank.score) {
+          this.result = 'Tie!';
+        } else {
+          this.result = 'Bank wins!';
+        }
+        //alert(this.result);
+        this.$.deal.disabled = false;
+      }
+    });
+  </script>
+  </polymer-element>
+  
+</body>
+</html>

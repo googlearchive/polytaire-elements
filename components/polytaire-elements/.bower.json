@@ -1,0 +1,14 @@
+{
+  "name": "polytaire-elements",
+  "homepage": "https://github.com/PolymerLabs/polytaire-elements",
+  "_release": "30ed2c0830",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "30ed2c08309238dc9e4d3c01c3748f2a25e98c71"
+  },
+  "_source": "git://github.com/PolymerLabs/polytaire-elements.git",
+  "_target": "master",
+  "_originalSource": "PolymerLabs/polytaire-elements",
+  "_direct": true
+}
